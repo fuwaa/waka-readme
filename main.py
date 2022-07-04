@@ -223,8 +223,8 @@ def prep_content(stats: dict | None, /) -> str:
         total_time := stats.get('human_readable_total')
     ):
         contents += f'- Wakatime Statistics  ================================================================================================= ⨯ \n'
-        contents += f'> Fuwaa has been malding for about {total_time}!\n'
-        contents += f'> '
+        contents += f'| Fuwaa has been malding for about {total_time}!\n'
+        contents += f'o '
 
     
     # make title
@@ -232,7 +232,7 @@ def prep_content(stats: dict | None, /) -> str:
 
         contents += make_title(stats.get('start'), stats.get('end')) + '\n\n'
         
-    contents += f'+ See the Graph!                                                       + \n'
+    contents += f'+ See the Graph!                                                         + \n'
     # make content
     logger.debug('Making contents')
     pad_len = len(
@@ -251,15 +251,15 @@ def prep_content(stats: dict | None, /) -> str:
             lg_nm=lang_name
         )
         contents += (
-            f'{lang_name.ljust(pad_len)}   ' +
+            f'# {lang_name.ljust(pad_len)}   ' +
             f'{lang_time: <16}{lang_bar}   ' +
             f'{lang_ratio:.2f}'.zfill(5) + ' %\n'
         )
-        if idx >= 5 or lang_name == '¯\_(ツ)_/¯':
+        if idx >= 5:
             break
 
     logger.debug('Contents were made')
-    contents += f'- ====================================================================================================================== - \n'
+    contents += f'\n- ====================================================================================================================== - \n'
     return contents.rstrip('\n')
 
 
