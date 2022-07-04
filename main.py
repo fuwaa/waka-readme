@@ -218,15 +218,18 @@ def prep_content(stats: dict | None, /) -> str:
         contents += 'No activity tracked'
         return contents
 
-    # make title
-    if wk_i.show_title:
-        contents += make_title(stats.get('start'), stats.get('end')) + '\n\n'
-
     # make byline
     if wk_i.show_total_time and (
         total_time := stats.get('human_readable_total')
     ):
-        contents += f'Total Time: {total_time}\n\n'
+        contents += f'! Wakatime Statistics                                                                                                   ! \n'
+        contents += f'Total time spent malding: {total_time} | '
+
+    
+    # make title
+    if wk_i.show_title:
+
+        contents += make_title(stats.get('start'), stats.get('end')) + '\n'
 
     # make content
     logger.debug('Making contents')
@@ -250,7 +253,7 @@ def prep_content(stats: dict | None, /) -> str:
             f'{lang_time: <16}{lang_bar}   ' +
             f'{lang_ratio:.2f}'.zfill(5) + ' %\n'
         )
-        if idx >= 5 or lang_name == 'Other':
+        if idx >= 5 or lang_name == 'Something else':
             break
 
     logger.debug('Contents were made')
@@ -311,7 +314,7 @@ def churn(old_readme: str, /) -> str | None:
     print('\n', generated_content, '\n', sep='')
     new_readme = re.sub(
         pattern=wk_c.waka_block_pattern,
-        repl=f'{wk_c.start_comment}\n\n```text\n{generated_content}\n```\n\n{wk_c.end_comment}',
+        repl=f'{wk_c.start_comment}\n\n```diff\n{generated_content}\n```\n\n{wk_c.end_comment}',
         string=old_readme
     )
     # return None  # un-comment when testing with --dev
