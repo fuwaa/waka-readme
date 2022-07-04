@@ -176,7 +176,7 @@ def make_title(dawn: str, dusk: str, /) -> str:
         logger.error(err)
         sys.exit(1)
     logger.debug('Title was made')
-    return f'Coverage: {start_date} - To: {end_date}'
+    return f'Coverage: {start_date} - {end_date}'
 
 
 def make_graph(
