@@ -176,7 +176,7 @@ def make_title(dawn: str, dusk: str, /) -> str:
         logger.error(err)
         sys.exit(1)
     logger.debug('Title was made')
-    return f'From: {start_date} - To: {end_date}'
+    return f'Coverage: {start_date} - To: {end_date}'
 
 
 def make_graph(
@@ -222,15 +222,17 @@ def prep_content(stats: dict | None, /) -> str:
     if wk_i.show_total_time and (
         total_time := stats.get('human_readable_total')
     ):
-        contents += f'! Wakatime Statistics                                                                                                   ! \n'
-        contents += f'Total time spent malding: {total_time} | '
+        contents += f'- Wakatime Statistics  ================================================================================================= ⨯ \n'
+        contents += f'> Fuwaa has been malding for about {total_time}!\n'
+        contents += f'> '
 
     
     # make title
     if wk_i.show_title:
 
-        contents += make_title(stats.get('start'), stats.get('end')) + '\n'
-
+        contents += make_title(stats.get('start'), stats.get('end')) + '\n\n'
+        
+    contents += f'+ See the Graph!                                                       + \n'
     # make content
     logger.debug('Making contents')
     pad_len = len(
@@ -253,10 +255,11 @@ def prep_content(stats: dict | None, /) -> str:
             f'{lang_time: <16}{lang_bar}   ' +
             f'{lang_ratio:.2f}'.zfill(5) + ' %\n'
         )
-        if idx >= 5 or lang_name == 'Something else':
+        if idx >= 5 or lang_name == '¯\_(ツ)_/¯':
             break
 
     logger.debug('Contents were made')
+    contents += f'- ====================================================================================================================== - \n'
     return contents.rstrip('\n')
 
 
