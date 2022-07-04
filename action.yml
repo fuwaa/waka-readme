@@ -54,6 +54,14 @@ inputs:
     default: "false"
     required: false
 
+  # location configuration
+
+  README_PATH:
+    description: "Path to the README file"
+    default: ""
+    required: false
+  
+
 runs:
   using: "docker"
   image: "Dockerfile"
