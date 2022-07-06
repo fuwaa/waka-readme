@@ -244,7 +244,7 @@ def prep_content(stats: dict | None, /) -> str:
         lang_name: str = lang.get('name')
         # >>> add languages to filter here <<<
         # if lang_name in {...}: continue
-        if lang_name in {Other}: continue
+        if lang_name == "Other": continue
         lang_time: str = lang.get('text') if wk_i.show_time else ''
         lang_ratio: float = lang.get('percent')
         lang_bar: str = make_graph(
